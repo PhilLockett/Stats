@@ -1,6 +1,6 @@
 # Stats_c - A simple implementation of a statistics counter as a singleton.
 
-## Introduction
+## Overview
 
 This is a simple statistics counter implemented as a singleton. The counts are 
 of type int, but can easily be customised, or even converted to a template. 
