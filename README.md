@@ -1,6 +1,6 @@
 # Stats_c
 
-A simple implementation of a statistics counter as a singleton.
+A simple statistics counter implemented as a singleton.
 
 ## Overview
 
