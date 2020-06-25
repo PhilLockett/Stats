@@ -24,10 +24,10 @@ the usage.
 
 To clone, build and run this code, execute the following unix/linux commands:
 
-  1. git clone https://github.com/PhilLockett/Stats.git
-  2. cd Stats/
-  3. make
-  4. ./test
+    git clone https://github.com/PhilLockett/Stats.git
+    cd Stats/
+    make
+    ./test
 
 ## Points of interest
 
