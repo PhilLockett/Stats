@@ -118,7 +118,7 @@ void Stats_c::display(std::ostream &os) const
 {
     for (auto& x: counts)
     {
-        os << "\t" << x.first.c_str() << "\t" << x.second << endl;
+        os << "\t" << x.first.c_str() << "\t" << x.second << "\n";
     }
 }
 

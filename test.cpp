@@ -70,16 +70,16 @@ int main(int argc, char *argv[])
     statsInst->incCounter("main");
 
 //- Status check. 
-    std::cout << "Current Statistics:" << std::endl;
-    std::cout << *statsInst << std::endl;
+    std::cout << "Current Statistics:\n";
+    std::cout << *statsInst << '\n';
 
 //- Do some work.
     localFunction(6);
     remoteFunction(2);   // Call test module with same initial log level.
 
 //- Status check. 
-    std::cout << "Current Statistics:" << std::endl;
-    std::cout << *statsInst << std::endl;
+    std::cout << "Current Statistics:\n";
+    std::cout << *statsInst << '\n';
 
 //- Reset counters and do some more work.
     statsInst->clearAllCounters();
@@ -87,8 +87,8 @@ int main(int argc, char *argv[])
     remoteFunction(7);   // Call test module with verbose log level.
 
 //- Status check. 
-    std::cout << "Current Statistics:" << std::endl;
-    std::cout << *statsInst << std::endl;
+    std::cout << "Current Statistics:\n";
+    std::cout << *statsInst << '\n';
 
 //- One more time without the reset.
     statsInst->setCounter("main", 2);
@@ -96,8 +96,8 @@ int main(int argc, char *argv[])
     remoteFunction(1);   // Call test module with same initial log level.
 
 //- Status check. 
-    std::cout << "Current Statistics:" << std::endl;
-    std::cout << *statsInst << std::endl;
+    std::cout << "Current Statistics:\n";
+    std::cout << *statsInst << '\n';
 
     return 0;
 }
