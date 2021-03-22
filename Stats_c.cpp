@@ -27,31 +27,6 @@
 
 
 /**
- * @section Statistics Singleton.
- *
- * Implementation of the Statistics Singleton.
- */
-
-Stats_c* Stats_c::instance = 0;    // Initialize instance on demand.
-
-
-/**
- * Create statistics instance, if necessary, and return reference.
- *
- * @return reference to the statistics instance.
- */
-Stats_c* Stats_c::getInstance(void)
-{
-    if (instance == 0)
-    {
-        instance = new Stats_c();
-    }
-
-    return instance;
-}
-
-
-/**
  * Get the current value of a counter.
  *
  * @param  key - string representing the key of the counter.

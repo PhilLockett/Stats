@@ -37,21 +37,23 @@
 class Stats_c
 {
 private:
-//- Hide the default constructor, destructor, copy constructor and assignement operator.
+//- Hide the default constructor and destructor.
     Stats_c(void) {}
     virtual ~Stats_c(void) {}
-    Stats_c(Stats_c const&);
-    void operator=(Stats_c const&);
 
     void display(std::ostream &os) const;
 
-    static Stats_c* instance;
     std::map<std::string, int> counts;
 
 public:
+//- Delete the copy constructor and assignement operator.
+    Stats_c(const Stats_c &) = delete;
+    void operator=(const Stats_c &) = delete;
+
     friend std::ostream & operator<<(std::ostream &os, const Stats_c &A) { A.display(os); return os; }
 
-    static Stats_c* getInstance();
+    static Stats_c* getInstance() { static Stats_c instance; return &instance; }
+
     void clearAllCounters(void) { counts.clear(); }
 
     int getCounter(std::string key) const;
