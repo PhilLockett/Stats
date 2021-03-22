@@ -39,24 +39,6 @@ static Stats_c * statsInst = Stats_c::getInstance();
 
 extern void remoteFunction(int count);
 
-/**
- * Dummy local function to test Statistics Implementation.
- *
- * @param  count - Statistics count.
- * @return error value or 0 if no errors.
- */
-void localFunction(const int count)
-{
-//- Do some work. Example that increments the counter with a known value.
-    statsInst->incCounter("Local", 10);
-
-//- Do some more work. Example that increments the counter one step at a time.
-    for (int i = 0; i < count; ++i)
-    {
-        statsInst->incCounter("Local");
-    }
-}
-
 int test0(void)
 {
     std::cout << "\tTest clearing counters with global reference.\n";
