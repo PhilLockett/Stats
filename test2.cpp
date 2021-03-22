@@ -21,8 +21,6 @@
  * Dummy module to test Statistics Implementation. Called from test.cpp.
  */
 
-#include <iostream>
-
 #include "Stats_c.h"
 
 static Stats_c * statsInst = Stats_c::getInstance();
