@@ -50,7 +50,7 @@ void localFunction(const int count)
 //- Do some work. Example that increments the counter with a known value.
     statsInst->incCounter("Local", 10);
 
-//- Do some more work. Example that increments the counter one at a time.
+//- Do some more work. Example that increments the counter one step at a time.
     for (int i = 0; i < count; ++i)
     {
         statsInst->incCounter("Local");
@@ -70,16 +70,14 @@ int main(int argc, char *argv[])
     statsInst->incCounter("main");
 
 //- Status check. 
-    std::cout << "Current Statistics:\n";
-    std::cout << *statsInst << '\n';
+    std::cout << "Current Statistics:\n" << *statsInst << '\n';
 
 //- Do some work.
     localFunction(6);
     remoteFunction(2);   // Call test module with same initial log level.
 
 //- Status check. 
-    std::cout << "Current Statistics:\n";
-    std::cout << *statsInst << '\n';
+    std::cout << "Current Statistics:\n"  << *statsInst << '\n';
 
 //- Reset counters and do some more work.
     statsInst->clearAllCounters();
@@ -87,8 +85,7 @@ int main(int argc, char *argv[])
     remoteFunction(7);   // Call test module with verbose log level.
 
 //- Status check. 
-    std::cout << "Current Statistics:\n";
-    std::cout << *statsInst << '\n';
+    std::cout << "Current Statistics:\n" << *statsInst << '\n';
 
 //- One more time without the reset.
     statsInst->setCounter("main", 2);
@@ -96,8 +93,7 @@ int main(int argc, char *argv[])
     remoteFunction(1);   // Call test module with same initial log level.
 
 //- Status check. 
-    std::cout << "Current Statistics:\n";
-    std::cout << *statsInst << '\n';
+    std::cout << "Current Statistics:\n" << *statsInst << '\n';
 
     return 0;
 }

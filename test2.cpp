@@ -37,7 +37,7 @@ void remoteFunction(int count)
 //- Do some work. Example that increments the counter with a known value.
     statsInst->incCounter("remote", 20);
 
-//- Do some more work. Example that increments the counter one at a time.
+//- Do some more work. Example that increments the counter one step at a time.
     for (int i = 0; i < count; ++i)
     {
         statsInst->incCounter("remote");
