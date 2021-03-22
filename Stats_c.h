@@ -52,7 +52,7 @@ public:
 
     friend std::ostream & operator<<(std::ostream &os, const Stats_c &A) { A.display(os); return os; }
 
-    static Stats_c* getInstance() { static Stats_c instance; return &instance; }
+    static Stats_c & getInstance() { static Stats_c instance; return instance; }
 
     void clearAllCounters(void) { counts.clear(); }
 
