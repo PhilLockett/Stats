@@ -27,8 +27,6 @@
 #include <map>
 #include <string>
 
-using namespace std;
-
 
 /**
  * @section Statistics Singleton.
@@ -48,7 +46,7 @@ private:
     void display(std::ostream &os) const;
 
     static Stats_c* instance;
-    map<string, int> counts;
+    std::map<std::string, int> counts;
 
 public:
     friend std::ostream & operator<<(std::ostream &os, const Stats_c &A) { A.display(os); return os; }
@@ -56,9 +54,9 @@ public:
     static Stats_c* getInstance();
     void clearAllCounters(void) { counts.clear(); }
 
-    int getCounter(string key) const;
-    void setCounter(string key, int value=0);
-    void incCounter(string key, int step=1);
+    int getCounter(std::string key) const;
+    void setCounter(std::string key, int value=0);
+    void incCounter(std::string key, int step=1);
 
 };
 

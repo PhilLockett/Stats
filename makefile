@@ -5,7 +5,7 @@ objects += Stats_c.o
 
 headers  = Stats_c.h
 
-options = 
+options = -std=c++20
 
 test:	$(objects)	$(headers)
 	g++ $(options) -o test $(objects)
