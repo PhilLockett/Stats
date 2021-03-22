@@ -57,6 +57,266 @@ void localFunction(const int count)
     }
 }
 
+int test0(void)
+{
+    std::cout << "\tTest clearing counters with global reference.\n";
+    int err = 0;
+
+    statsInst->clearAllCounters();
+
+    if (statsInst->getCounter("local") != 0)
+        err++;
+
+    return err;
+}
+int test1(void)
+{
+    std::cout << "\tTest initialisation with global reference.\n";
+    int err = 0;
+
+    statsInst->incCounter("local");
+
+    if (statsInst->getCounter("local") != 1)
+        err++;
+
+    return err;
+}
+int test2(void)
+{
+    std::cout << "\tTest second incrementation with global reference.\n";
+    int err = 0;
+
+    statsInst->incCounter("local");
+
+    if (statsInst->getCounter("local") != 2)
+        err++;
+
+    return err;
+}
+int test3(void)
+{
+    std::cout << "\tTest incrementation by 2 with global reference.\n";
+    int err = 0;
+
+    statsInst->incCounter("local", 2);
+
+    if (statsInst->getCounter("local") != 4)
+        err++;
+
+    return err;
+}
+int test4(void)
+{
+    std::cout << "\tTest multiple increments with global reference.\n";
+    int err = 0;
+
+    for (int i = 0; i < 10; ++i)
+        statsInst->incCounter("local");
+
+    if (statsInst->getCounter("local") != 14)
+        err++;
+
+    return err;
+}
+int test5(void)
+{
+    std::cout << "\tTest multiple increments by 5 with global reference.\n";
+    int err = 0;
+
+    for (int i = 0; i < 4; ++i)
+        statsInst->incCounter("local", 5);
+
+    if (statsInst->getCounter("local") != 34)
+        err++;
+
+    return err;
+}
+int test6(void)
+{
+    std::cout << "\tTest multiple increments by remote function.\n";
+    int err = 0;
+
+    remoteFunction(2);
+
+    if (statsInst->getCounter("local") != 34)
+        err++;
+
+    if (statsInst->getCounter("remote") != 22)
+        err++;
+
+    return err;
+}
+int display(void)
+{
+    std::cout << "Display Current Statistics:\n"  << *statsInst << '\n';
+    int err = 0;
+
+    return err;
+}
+int test7(void)
+{
+    std::cout << "\tTest clearing counters with local reference.\n";
+    int err = 0;
+
+    static Stats_c * localStatsInst = Stats_c::getInstance();
+    localStatsInst->clearAllCounters();
+
+    if (localStatsInst->getCounter("local") != 0)
+        err++;
+
+    return err;
+}
+int test8(void)
+{
+    std::cout << "\tTest initialisation with local reference.\n";
+    int err = 0;
+
+    static Stats_c * localStatsInst = Stats_c::getInstance();
+    localStatsInst->incCounter("local");
+
+    if (localStatsInst->getCounter("local") != 1)
+        err++;
+
+    return err;
+}
+int test9(void)
+{
+    std::cout << "\tTest second incrementation with local reference.\n";
+    int err = 0;
+
+    static Stats_c * localStatsInst = Stats_c::getInstance();
+    localStatsInst->incCounter("local");
+
+    if (localStatsInst->getCounter("local") != 2)
+        err++;
+
+    return err;
+}
+int test10(void)
+{
+    std::cout << "\tTest incrementation by 2 with local reference.\n";
+    int err = 0;
+
+    static Stats_c * localStatsInst = Stats_c::getInstance();
+    localStatsInst->incCounter("local", 2);
+
+    if (localStatsInst->getCounter("local") != 4)
+        err++;
+
+    return err;
+}
+int test11(void)
+{
+    std::cout << "\tTest multiple increments with local reference.\n";
+    int err = 0;
+
+    static Stats_c * localStatsInst = Stats_c::getInstance();
+    for (int i = 0; i < 6; ++i)
+        localStatsInst->incCounter("local");
+
+    if (localStatsInst->getCounter("local") != 10)
+        err++;
+
+    return err;
+}
+int test12(void)
+{
+    std::cout << "\tTest multiple increments by 5 with local reference.\n";
+    int err = 0;
+
+    static Stats_c * localStatsInst = Stats_c::getInstance();
+    for (int i = 0; i < 3; ++i)
+        localStatsInst->incCounter("local", 5);
+
+    if (localStatsInst->getCounter("local") != 25)
+        err++;
+
+    return err;
+}
+int test13(void)
+{
+    std::cout << "\tTest multiple increments by remote function.\n";
+    int err = 0;
+
+    static Stats_c * localStatsInst = Stats_c::getInstance();
+    remoteFunction(7);
+
+    if (localStatsInst->getCounter("local") != 25)
+        err++;
+
+    if (localStatsInst->getCounter("remote") != 27)
+        err++;
+
+    return err;
+}
+int test14(void)
+{
+    std::cout << "\tTest set existing counter to a specific value.\n";
+    int err = 0;
+
+    statsInst->setCounter("local", 20);
+
+    if (statsInst->getCounter("local") != 20)
+        err++;
+
+    if (statsInst->getCounter("remote") != 27)
+        err++;
+
+    return err;
+}
+int test15(void)
+{
+    std::cout << "\tTest set new counter to a specific value.\n";
+    int err = 0;
+
+    statsInst->setCounter("test", 10);
+
+    if (statsInst->getCounter("test") != 10)
+        err++;
+
+    if (statsInst->getCounter("local") != 20)
+        err++;
+
+    if (statsInst->getCounter("remote") != 27)
+        err++;
+
+    return err;
+}
+
+
+int runTests(void)
+{
+    std::cout << "Executing all tests.\n";
+    int err = 0;
+
+    err += test0();
+    err += test1();
+    err += test2();
+    err += test3();
+    err += test4();
+    err += test5();
+    err += test6();
+    err += display();
+    err += test7();
+    err += test8();
+    err += test9();
+    err += test10();
+    err += test11();
+    err += test12();
+    err += test13();
+    err += display();
+    err += test14();
+    err += test15();
+    err += display();
+
+    if (err)
+        std::cerr << err << " ERROR(S) encountered!.\n";
+    else
+        std::cout << "All tests passed.\n";
+
+    return err;
+}
+
 /**
  * Test system entry point.
  *
@@ -66,35 +326,6 @@ void localFunction(const int count)
  */
 int main(int argc, char *argv[])
 {
-//- Initialise.
-    statsInst->incCounter("main");
-
-//- Status check. 
-    std::cout << "Current Statistics:\n" << *statsInst << '\n';
-
-//- Do some work.
-    localFunction(6);
-    remoteFunction(2);
-
-//- Status check. 
-    std::cout << "Current Statistics:\n"  << *statsInst << '\n';
-
-//- Reset counters and do some more work.
-    statsInst->clearAllCounters();
-    localFunction(4);
-    remoteFunction(7);
-
-//- Status check. 
-    std::cout << "Current Statistics:\n" << *statsInst << '\n';
-
-//- One more time without the reset.
-    statsInst->setCounter("main", 2);
-    localFunction(1);
-    remoteFunction(1);
-
-//- Status check. 
-    std::cout << "Current Statistics:\n" << *statsInst << '\n';
-
-    return 0;
+    return runTests();
 }
 
