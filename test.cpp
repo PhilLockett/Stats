@@ -46,9 +46,9 @@ int func(void) {\
 
 #define END_TEST_CASE return err; }
 
-#define REQUIRE(cond) if(!cond) {\
+#define REQUIRE(cond) if(!(cond)) {\
         err++; \
-		std::cerr << "Requirement " << #cond << " failed\n"; \
+		std::cerr << "Requirement (" << #cond << ") failed\n"; \
 }
 
 TEST_CASE(test0, "Test clearing counters with direct access.")
