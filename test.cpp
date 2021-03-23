@@ -41,14 +41,14 @@ extern void remoteFunction(int count);
 
 #define TEST_CASE(func, desc) \
 int func(void) {\
-    std::cout << '\t' << desc << '\n'; \
+    std::cout << '\t' << #func << "() - " << desc << '\n'; \
     int err = 0;
 
 #define END_TEST_CASE return err; }
 
 #define REQUIRE(cond) if(!(cond)) {\
         err++; \
-		std::cerr << "Requirement (" << #cond << ") failed\n"; \
+        std::cerr << "Requirement (" << #cond << ") failed\n"; \
 }
 
 TEST_CASE(test0, "Test clearing counters with direct access.")
