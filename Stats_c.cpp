@@ -34,7 +34,7 @@
  */
 int Stats_c::_getCounter(std::string key) const
 {
-    std::map<std::string, int>::const_iterator it = counts.find(key);
+    auto it = counts.find(key);
     if (it == counts.end())
     {
         return 0;
@@ -52,7 +52,7 @@ int Stats_c::_getCounter(std::string key) const
  */
 void Stats_c::_setCounter(std::string key, int value)
 {
-    std::map<std::string, int>::iterator it = counts.find(key);
+    auto it = counts.find(key);
     if (it == counts.end())
     {
         counts[key] = value;
@@ -72,7 +72,7 @@ void Stats_c::_setCounter(std::string key, int value)
  */
 void Stats_c::_incCounter(std::string key, int step)
 {
-    std::map<std::string, int>::iterator it = counts.find(key);
+    auto it = counts.find(key);
     if (it == counts.end())
     {
         counts[key] = step;
