@@ -24,7 +24,7 @@
 #if !defined(_STATS_C_H__20190903_1340__INCLUDED_)
 #define _STATS_C_H__20190903_1340__INCLUDED_
 
-#include <map>
+#include <unordered_map>
 #include <string>
 
 
@@ -49,7 +49,7 @@ private:
     void _setCounter(std::string key, int value);
     void _incCounter(std::string key, int step);
 
-    std::map<std::string, int> counts;
+    std::unordered_map<std::string, int> counts;
 
 public:
 //- Delete the copy constructor and assignement operator.
