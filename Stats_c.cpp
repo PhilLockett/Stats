@@ -32,7 +32,7 @@
  * @param  key - string representing the key of the counter.
  * @return the current value of the counter for the given key.
  */
-int Stats_c::getCounter(std::string key) const
+int Stats_c::_getCounter(std::string key) const
 {
     std::map<std::string, int>::const_iterator it = counts.find(key);
     if (it == counts.end())
@@ -50,7 +50,7 @@ int Stats_c::getCounter(std::string key) const
  * @param  key - string representing the key of the counter.
  * @param  value - new value to set the counter to (default = 0).
  */
-void Stats_c::setCounter(std::string key, int value)
+void Stats_c::_setCounter(std::string key, int value)
 {
     std::map<std::string, int>::iterator it = counts.find(key);
     if (it == counts.end())
@@ -70,7 +70,7 @@ void Stats_c::setCounter(std::string key, int value)
  * @param  key - string representing the key of the counter.
  * @param  step - amount to increment the counter by (default = 1).
  */
-void Stats_c::incCounter(std::string key, int step)
+void Stats_c::_incCounter(std::string key, int step)
 {
     std::map<std::string, int>::iterator it = counts.find(key);
     if (it == counts.end())
@@ -89,7 +89,7 @@ void Stats_c::incCounter(std::string key, int step)
  *
  * @param  os - Output stream.
  */
-void Stats_c::display(std::ostream &os) const
+void Stats_c::_display(std::ostream &os) const
 {
     for (auto& x: counts)
     {

@@ -23,7 +23,6 @@
 
 #include "Stats_c.h"
 
-static Stats_c & statsInst = Stats_c::getInstance();
 
 
 /**
@@ -35,12 +34,12 @@ static Stats_c & statsInst = Stats_c::getInstance();
 void remoteFunction(int count)
 {
 //- Do some work. Example that increments the counter with a known value.
-    statsInst.incCounter("remote", 20);
+    Stats_c::incCounter("remote", 20);
 
 //- Do some more work. Example that increments the counter one step at a time.
     for (int i = 0; i < count; ++i)
     {
-        statsInst.incCounter("remote");
+        Stats_c::incCounter("remote");
     }
 }
 

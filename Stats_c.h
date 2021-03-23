@@ -41,7 +41,13 @@ private:
     Stats_c(void) {}
     virtual ~Stats_c(void) {}
 
-    void display(std::ostream &os) const;
+    void _display(std::ostream &os) const;
+
+    void _clearAllCounters(void) { counts.clear(); }
+
+    int _getCounter(std::string key) const;
+    void _setCounter(std::string key, int value);
+    void _incCounter(std::string key, int step);
 
     std::map<std::string, int> counts;
 
@@ -50,15 +56,15 @@ public:
     Stats_c(const Stats_c &) = delete;
     void operator=(const Stats_c &) = delete;
 
-    friend std::ostream & operator<<(std::ostream &os, const Stats_c &A) { A.display(os); return os; }
+    friend std::ostream & operator<<(std::ostream &os, const Stats_c &A) { A._display(os); return os; }
 
     static Stats_c & getInstance() { static Stats_c instance; return instance; }
 
-    void clearAllCounters(void) { counts.clear(); }
+    static void clearAllCounters(void) { getInstance()._clearAllCounters(); }
 
-    int getCounter(std::string key) const;
-    void setCounter(std::string key, int value=0);
-    void incCounter(std::string key, int step=1);
+    static int getCounter(std::string key) { return getInstance()._getCounter(key); }
+    static void setCounter(std::string key, int value=0) { getInstance()._setCounter(key, value); }
+    static void incCounter(std::string key, int step=1) { getInstance()._incCounter(key, step); }
 
 };
 
