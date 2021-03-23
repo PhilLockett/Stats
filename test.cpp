@@ -40,7 +40,7 @@ extern void remoteFunction(int count);
 
 int test0(void)
 {
-    std::cout << "\tTest clearing counters with global reference.\n";
+    std::cout << "\tTest clearing counters with direct access.\n";
     int err = 0;
 
     Stats_c::clearAllCounters();
@@ -52,7 +52,7 @@ int test0(void)
 }
 int test1(void)
 {
-    std::cout << "\tTest initialisation with global reference.\n";
+    std::cout << "\tTest initialisation with direct access.\n";
     int err = 0;
 
     Stats_c::incCounter("local");
@@ -64,7 +64,7 @@ int test1(void)
 }
 int test2(void)
 {
-    std::cout << "\tTest second incrementation with global reference.\n";
+    std::cout << "\tTest second incrementation with direct access.\n";
     int err = 0;
 
     Stats_c::incCounter("local");
@@ -76,7 +76,7 @@ int test2(void)
 }
 int test3(void)
 {
-    std::cout << "\tTest incrementation by 2 with global reference.\n";
+    std::cout << "\tTest incrementation by 2 with direct access.\n";
     int err = 0;
 
     Stats_c::incCounter("local", 2);
@@ -88,7 +88,7 @@ int test3(void)
 }
 int test4(void)
 {
-    std::cout << "\tTest multiple increments with global reference.\n";
+    std::cout << "\tTest multiple increments with direct access.\n";
     int err = 0;
 
     for (int i = 0; i < 10; ++i)
@@ -101,7 +101,7 @@ int test4(void)
 }
 int test5(void)
 {
-    std::cout << "\tTest multiple increments by 5 with global reference.\n";
+    std::cout << "\tTest multiple increments by 5 with direct access.\n";
     int err = 0;
 
     for (int i = 0; i < 4; ++i)
