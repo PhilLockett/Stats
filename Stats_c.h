@@ -45,11 +45,11 @@ private:
 
     void _clearAllCounters(void) { counts.clear(); }
 
-    int _getCounter(const std::string_view & key) const;
-    void _setCounter(const std::string_view & key, int value);
-    void _incCounter(const std::string_view & key, int step);
+    int _getCounter(const std::string & key) const;
+    void _setCounter(const std::string & key, int value);
+    void _incCounter(const std::string & key, int step);
 
-    std::unordered_map<std::string_view, int> counts;
+    std::unordered_map<std::string, int> counts;
 
 public:
 //- Delete the copy constructor and assignement operator.
@@ -62,9 +62,9 @@ public:
 
     static void clearAllCounters(void) { getInstance()._clearAllCounters(); }
 
-    static int getCounter(const std::string_view & key) { return getInstance()._getCounter(key); }
-    static void setCounter(const std::string_view & key, int value=0) { getInstance()._setCounter(key, value); }
-    static void incCounter(const std::string_view & key, int step=1) { getInstance()._incCounter(key, step); }
+    static int getCounter(const std::string & key) { return getInstance()._getCounter(key); }
+    static void setCounter(const std::string & key, int value=0) { getInstance()._setCounter(key, value); }
+    static void incCounter(const std::string & key, int step=1) { getInstance()._incCounter(key, step); }
 
 };
 
