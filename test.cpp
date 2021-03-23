@@ -127,14 +127,6 @@ int test6(void)
 
     return err;
 }
-int display(void)
-{
-    static Stats_c & statsInst = Stats_c::getInstance();
-    std::cout << "Display Current Statistics:\n"  << statsInst << '\n';
-    int err = 0;
-
-    return err;
-}
 int test7(void)
 {
     std::cout << "\tTest clearing counters with local reference.\n";
@@ -265,6 +257,10 @@ int test15(void)
     return err;
 }
 
+void display(void)
+{
+    std::cout << "Display Current Statistics:\n"  << Stats_c::getInstance() << '\n';
+}
 
 int runTests(void)
 {
@@ -278,7 +274,7 @@ int runTests(void)
     err += test4();
     err += test5();
     err += test6();
-    err += display();
+    display();
     err += test7();
     err += test8();
     err += test9();
@@ -286,10 +282,10 @@ int runTests(void)
     err += test11();
     err += test12();
     err += test13();
-    err += display();
+    display();
     err += test14();
     err += test15();
-    err += display();
+    display();
 
     if (err)
         std::cerr << err << " ERROR(S) encountered!.\n";
