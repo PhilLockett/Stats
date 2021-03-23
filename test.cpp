@@ -32,6 +32,7 @@
  */
 
 #include <iostream>
+#include <sstream>
 
 #include "Stats_c.h"
 
@@ -256,6 +257,40 @@ int test15(void)
 
     return err;
 }
+std::string getCounterName(int a)
+{
+    std::stringstream ss;
+    ss << "counter" << a;
+
+    return ss.str();
+}
+int test16(void)
+{
+    std::cout << "\tTest larger number of counters.\n";
+    int err = 0;
+    const int COUNTERS = 200000;
+    const int INCREMENTS = 4;
+
+    Stats_c::clearAllCounters();
+
+    for (int j = 0; j < INCREMENTS; ++j)
+    {
+		std::cout << "\t\tIncrementing.\n";
+        for (int i = 0; i < COUNTERS; ++i)
+        {
+            Stats_c::incCounter(getCounterName(i));
+        }
+    }
+
+    std::cout << "\t\tChecking.\n";
+    for (int i = 0; i < COUNTERS; ++i)
+    {
+        if (Stats_c::getCounter(getCounterName(i)) != INCREMENTS)
+            err++;
+    }
+
+    return err;
+}
 
 void display(void)
 {
@@ -286,6 +321,7 @@ int runTests(void)
     err += test14();
     err += test15();
     display();
+    err += test16();
 
     if (err)
         std::cerr << err << " ERROR(S) encountered!.\n";
