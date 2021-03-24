@@ -34,6 +34,7 @@
 
 #define VERBOSE_ON UnitTest_c::getInstance().setVerbose(true);
 #define VERBOSE_OFF UnitTest_c::getInstance().setVerbose(false);
+#define IS_VERBOSE (UnitTest_c::getInstance().isVerbose())
 
 #define UNIT_TEST(func, desc) void func(void) {\
     UnitTest_c::getInstance().progress(#func, desc);
@@ -81,6 +82,7 @@ public:
     static UnitTest_c & getInstance() { static UnitTest_c instance; return instance; }
 
     static void setVerbose(bool state = true) { verbose = state; }
+    static bool isVerbose(void) { return verbose; }
     static void progress(const std::string & test, const std::string & desc);
     static void failure(const std::string & cond);
     static int getErrorCount(void) { return errors; }
