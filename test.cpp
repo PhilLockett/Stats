@@ -195,10 +195,10 @@ int runTests(void)
 //    VERBOSE_OFF
 
     RUN_TEST(test0)
-    display();
+//    display();
 
     RUN_TEST(test7)
-    display();
+//    display();
 
     RUN_TEST(test16)
 
