@@ -58,19 +58,18 @@ private:
     virtual ~UnitTest_c(void) {}
 
     void _display(std::ostream &os) const;
-    void _progress(const std::string & func, const std::string & desc);
 
     static std::string function;
     static std::string description;
     static std::string condition;
+    static bool verbose;
+    static int errors;
 
-	static bool verbose;
     void _setVerbose(bool state) { verbose = state; }
-
-	static int errors;
+    void _progress(const std::string & func, const std::string & desc);
+    void _failure(const std::string & cond);
     int _getErrorCount(void) const { return errors; }
 
-    void _failure(const std::string & cond);
 
 public:
 //- Delete the copy constructor and assignement operator.
@@ -81,13 +80,11 @@ public:
 
     static UnitTest_c & getInstance() { static UnitTest_c instance; return instance; }
 
-    static void progress(const std::string & func, const std::string & desc) { getInstance()._progress(func, desc); }
-
     static void setVerbose(bool state = true) { getInstance()._setVerbose(state); }
-
+    static void progress(const std::string & func, const std::string & desc) { getInstance()._progress(func, desc); }
+    static void failure(const std::string & cond) { getInstance()._failure(cond); }
     static int getErrorCount(void) { return getInstance()._getErrorCount(); }
 
-    static void failure(const std::string & cond) { getInstance()._failure(cond); }
 };
 
 #endif // !defined(_UNITTEST_H__20210324_0940__INCLUDED_)
