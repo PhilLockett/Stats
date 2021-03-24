@@ -38,6 +38,9 @@
 #define UNIT_TEST(func, desc) void func(void) {\
     UnitTest_c::getInstance().progress(#func, desc);
 
+#define NEXT_CASE(func, desc) \
+    UnitTest_c::getInstance().progress(#func, desc);
+
 #define END_TEST }
 
 #define REQUIRE(cond) if (!(cond)) UnitTest_c::getInstance().failure(#cond);
