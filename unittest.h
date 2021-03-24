@@ -61,7 +61,7 @@ private:
 
     void display(std::ostream &os) const;
 
-    static std::string function;
+    static std::string testCase;
     static std::string description;
     static std::string condition;
     static bool verbose;
@@ -78,7 +78,7 @@ public:
     static UnitTest_c & getInstance() { static UnitTest_c instance; return instance; }
 
     static void setVerbose(bool state = true) { verbose = state; }
-    static void progress(const std::string & func, const std::string & desc);
+    static void progress(const std::string & test, const std::string & desc);
     static void failure(const std::string & cond);
     static int getErrorCount(void) { return errors; }
 

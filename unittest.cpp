@@ -25,7 +25,7 @@
 
 #include "unittest.h"
 
-std::string UnitTest_c::function = "UNDEFINED";
+std::string UnitTest_c::testCase = "UNDEFINED";
 std::string UnitTest_c::description = "UNDEFINED";
 std::string UnitTest_c::condition = "UNDEFINED";
 bool UnitTest_c::verbose = true;
@@ -40,18 +40,18 @@ int UnitTest_c::errors = 0;
  */
 void UnitTest_c::display(std::ostream &os) const
 {
-     os << "\tFunction:\t" << function << "()\n";
+     os << "\tTest Case:\t" << testCase << "()\n";
      os << "\tDescription:\t" << description << "()\n";
      os << "\tVerbose:\t" << verbose << '\n';
 }
 
-void UnitTest_c::progress(const std::string & func, const std::string & desc)
+void UnitTest_c::progress(const std::string & test, const std::string & desc)
 {
-    function = func;
+    testCase = test;
     description = desc;
 
     if (verbose)
-        std::cout << '\t' << function << " - " << description << '\n';
+        std::cout << '\t' << testCase << " - " << description << '\n';
 }
 
 void UnitTest_c::failure(const std::string & cond)
@@ -59,7 +59,7 @@ void UnitTest_c::failure(const std::string & cond)
     errors++;
     condition = cond;
     std::cerr << '\n';
-    std::cerr << "While running " << function << " (" << description << "):\n";
+    std::cerr << "While running " << testCase << " (" << description << "):\n";
     std::cerr << "\tRequirement (" << condition << ") failed\n";
     std::cerr << '\n';
 }
