@@ -61,25 +61,16 @@ private:
     void _progress(const std::string & func, const std::string & desc);
 
     static std::string function;
-    std::string _getFunction(void) const { return function; }
-    void _setFunction(const std::string & str) { function = str; }
-
     static std::string description;
-    std::string _getDescription(void) const { return description; }
-    void _setDescription(const std::string & str) { description = str; }
-
     static std::string condition;
-    std::string _getCondition(void) const { return condition; }
-    void _setCondition(const std::string & str) { condition = str; }
 
 	static bool verbose;
     void _setVerbose(bool state) { verbose = state; }
 
 	static int errors;
     int _getErrorCount(void) const { return errors; }
-    void _incErrors(void) { errors++; }
 
-    void _failure(const std::string & str) { errors++; condition = str; std::cerr << "Requirement (" << condition << ") failed\n"; }
+    void _failure(const std::string & cond);
 
 public:
 //- Delete the copy constructor and assignement operator.
@@ -92,21 +83,11 @@ public:
 
     static void progress(const std::string & func, const std::string & desc) { getInstance()._progress(func, desc); }
 
-    static std::string getFunction(void) { return getInstance()._getFunction(); }
-    static void setFunction(const std::string & str) { getInstance()._setFunction(str); }
-
-    static std::string getDescription(void) { return getInstance()._getDescription(); }
-    static void setDescription(const std::string & str) { getInstance()._setDescription(str); }
-
-    static std::string getCondition(void) { return getInstance()._getCondition(); }
-    static void setCondition(const std::string & str) { getInstance()._setCondition(str); }
-
-    static void setVerbose(bool state) { getInstance()._setVerbose(state); }
+    static void setVerbose(bool state = true) { getInstance()._setVerbose(state); }
 
     static int getErrorCount(void) { return getInstance()._getErrorCount(); }
-    static void incErrors(void) { getInstance()._incErrors(); }
 
-    static void failure(const std::string & str) { getInstance()._failure(str); }
+    static void failure(const std::string & cond) { getInstance()._failure(cond); }
 };
 
 #endif // !defined(_UNITTEST_H__20210324_0940__INCLUDED_)

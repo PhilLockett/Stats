@@ -47,9 +47,17 @@ void UnitTest_c::_display(std::ostream &os) const
 
 void UnitTest_c::_progress(const std::string & func, const std::string & desc)
 {
-    UnitTest_c::setFunction(func);
-    UnitTest_c::setDescription(desc);
+    function = func;
+    description = desc;
 
     if (verbose)
         std::cout << '\t' << function << "() - " << description << '\n';
 }
+
+void UnitTest_c::_failure(const std::string & cond)
+{
+    errors++;
+    condition = cond;
+    std::cerr << "Requirement (" << condition << ") failed\n";
+}
+
