@@ -46,41 +46,35 @@ UNIT_TEST(test0, "Test clearing counters with direct access.")
     Stats_c::clearAllCounters();
 
     REQUIRE(Stats_c::getCounter("local") == 0)
-END_TEST
 
-UNIT_TEST(test1, "Test initialisation with direct access.")
+NEXT_CASE(test1, "Test initialisation with direct access.")
     Stats_c::incCounter("local");
 
     REQUIRE(Stats_c::getCounter("local") == 1)
-END_TEST
 
-UNIT_TEST(test2, "Test second incrementation with direct access.")
+NEXT_CASE(test2, "Test second incrementation with direct access.")
     Stats_c::incCounter("local");
 
     REQUIRE(Stats_c::getCounter("local") == 2)
-END_TEST
 
-UNIT_TEST(test3, "Test incrementation by 2 with direct access.")
+NEXT_CASE(test3, "Test incrementation by 2 with direct access.")
     Stats_c::incCounter("local", 2);
 
     REQUIRE(Stats_c::getCounter("local") == 4)
-END_TEST
 
-UNIT_TEST(test4, "Test multiple increments with direct access.")
+NEXT_CASE(test4, "Test multiple increments with direct access.")
     for (int i = 0; i < 10; ++i)
         Stats_c::incCounter("local");
 
     REQUIRE(Stats_c::getCounter("local") == 14)
-END_TEST
 
-UNIT_TEST(test5, "Test multiple increments by 5 with direct access.")
+NEXT_CASE(test5, "Test multiple increments by 5 with direct access.")
     for (int i = 0; i < 4; ++i)
         Stats_c::incCounter("local", 5);
 
     REQUIRE(Stats_c::getCounter("local") == 34)
-END_TEST
 
-UNIT_TEST(test6, "Test multiple increments by remote function.")
+NEXT_CASE(test6, "Test multiple increments by remote function.")
     remoteFunction(2);
 
     REQUIRE(Stats_c::getCounter("local") == 34)
@@ -92,61 +86,47 @@ UNIT_TEST(test7, "Test clearing counters with local reference.")
     localStatsInst.clearAllCounters();
 
     REQUIRE(localStatsInst.getCounter("local") == 0)
-END_TEST
 
-UNIT_TEST(test8, "Test initialisation with local reference.")
-    auto & localStatsInst = Stats_c::getInstance();
+NEXT_CASE(test8, "Test initialisation with local reference.")
     localStatsInst.incCounter("local");
 
     REQUIRE(localStatsInst.getCounter("local") == 1)
-END_TEST
 
-UNIT_TEST(test9, "Test second incrementation with local reference.")
-    auto & localStatsInst = Stats_c::getInstance();
+NEXT_CASE(test9, "Test second incrementation with local reference.")
     localStatsInst.incCounter("local");
 
     REQUIRE(localStatsInst.getCounter("local") == 2)
-END_TEST
 
-UNIT_TEST(test10, "Test incrementation by 2 with local reference.")
-    auto & localStatsInst = Stats_c::getInstance();
+NEXT_CASE(test10, "Test incrementation by 2 with local reference.")
     localStatsInst.incCounter("local", 2);
 
     REQUIRE(localStatsInst.getCounter("local") == 4)
-END_TEST
 
-UNIT_TEST(test11, "Test multiple increments with local reference.")
-    auto & localStatsInst = Stats_c::getInstance();
+NEXT_CASE(test11, "Test multiple increments with local reference.")
     for (int i = 0; i < 6; ++i)
         localStatsInst.incCounter("local");
 
     REQUIRE(localStatsInst.getCounter("local") == 10)
-END_TEST
 
-UNIT_TEST(test12, "Test multiple increments by 5 with local reference.")
-    auto & localStatsInst = Stats_c::getInstance();
+NEXT_CASE(test12, "Test multiple increments by 5 with local reference.")
     for (int i = 0; i < 3; ++i)
         localStatsInst.incCounter("local", 5);
 
     REQUIRE(localStatsInst.getCounter("local") == 25)
-END_TEST
 
-UNIT_TEST(test13, "Test multiple increments by remote function.")
-    auto & localStatsInst = Stats_c::getInstance();
+NEXT_CASE(test13, "Test multiple increments by remote function.")
     remoteFunction(7);
 
     REQUIRE(localStatsInst.getCounter("local") == 25)
     REQUIRE(localStatsInst.getCounter("remote") == 27)
-END_TEST
 
-UNIT_TEST(test14, "Test set existing counter to a specific value.")
+NEXT_CASE(test14, "Test set existing counter to a specific value.")
     Stats_c::setCounter("local", 20);
 
     REQUIRE(Stats_c::getCounter("local") == 20)
     REQUIRE(Stats_c::getCounter("remote") == 27)
-END_TEST
 
-UNIT_TEST(test15, "Test set new counter to a specific value.")
+NEXT_CASE(test15, "Test set new counter to a specific value.")
     Stats_c::setCounter("test", 10);
 
     REQUIRE(Stats_c::getCounter("test") == 10)
@@ -169,7 +149,7 @@ UNIT_TEST(test16, "Test large number of counters.")
 
     for (int j = 0; j < INCREMENTS; ++j)
     {
-		std::cout << "\t\tIncrementing.\n";
+        std::cout << "\t\tIncrementing.\n";
         for (int i = 0; i < COUNTERS; ++i)
         {
             Stats_c::incCounter(getCounterName(i));
@@ -194,24 +174,11 @@ int runTests(void)
     std::cout << "Executing all tests.\n";
 
     RUN_TEST(test0)
-    RUN_TEST(test1)
-    RUN_TEST(test2)
-    RUN_TEST(test3)
-    RUN_TEST(test4)
-    RUN_TEST(test5)
-    RUN_TEST(test6)
     display();
+
     RUN_TEST(test7)
-    RUN_TEST(test8)
-    RUN_TEST(test9)
-    RUN_TEST(test10)
-    RUN_TEST(test11)
-    RUN_TEST(test12)
-    RUN_TEST(test13)
     display();
-    RUN_TEST(test14)
-    RUN_TEST(test15)
-    display();
+
     RUN_TEST(test16)
 
     const int err = ERROR_COUNT;
