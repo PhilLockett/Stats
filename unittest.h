@@ -35,8 +35,7 @@
 #define VERBOSE_ON UnitTest_c::getInstance().setVerbose(true);
 #define VERBOSE_OFF UnitTest_c::getInstance().setVerbose(false);
 
-#define UNIT_TEST(func, desc) \
-void func(void) {\
+#define UNIT_TEST(func, desc) void func(void) {\
     UnitTest_c::getInstance().progress(#func, desc);
 
 #define END_TEST }
