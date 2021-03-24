@@ -51,13 +51,16 @@ void UnitTest_c::progress(const std::string & func, const std::string & desc)
     description = desc;
 
     if (verbose)
-        std::cout << '\t' << function << "() - " << description << '\n';
+        std::cout << '\t' << function << " - " << description << '\n';
 }
 
 void UnitTest_c::failure(const std::string & cond)
 {
     errors++;
     condition = cond;
-    std::cerr << "Requirement (" << condition << ") failed\n";
+    std::cerr << '\n';
+    std::cerr << "While running " << function << " (" << description << "):\n";
+    std::cerr << "\tRequirement (" << condition << ") failed\n";
+    std::cerr << '\n';
 }
 
