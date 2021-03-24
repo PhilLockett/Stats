@@ -36,20 +36,11 @@
 
 #include "Stats_c.h"
 
+#include "unittest.h"
+
 
 extern void remoteFunction(int count);
 
-#define UNIT_TEST(func, desc) \
-int func(void) {\
-    std::cout << '\t' << #func << "() - " << desc << '\n'; \
-    int err = 0;
-
-#define END_TEST return err; }
-
-#define REQUIRE(cond) if(!(cond)) {\
-        err++; \
-        std::cerr << "Requirement (" << #cond << ") failed\n"; \
-}
 
 UNIT_TEST(test0, "Test clearing counters with direct access.")
     Stats_c::clearAllCounters();
@@ -201,29 +192,29 @@ void display(void)
 int runTests(void)
 {
     std::cout << "Executing all tests.\n";
-    int err = 0;
 
-    err += test0();
-    err += test1();
-    err += test2();
-    err += test3();
-    err += test4();
-    err += test5();
-    err += test6();
+    RUN_TEST(test0)
+    RUN_TEST(test1)
+    RUN_TEST(test2)
+    RUN_TEST(test3)
+    RUN_TEST(test4)
+    RUN_TEST(test5)
+    RUN_TEST(test6)
     display();
-    err += test7();
-    err += test8();
-    err += test9();
-    err += test10();
-    err += test11();
-    err += test12();
-    err += test13();
+    RUN_TEST(test7)
+    RUN_TEST(test8)
+    RUN_TEST(test9)
+    RUN_TEST(test10)
+    RUN_TEST(test11)
+    RUN_TEST(test12)
+    RUN_TEST(test13)
     display();
-    err += test14();
-    err += test15();
+    RUN_TEST(test14)
+    RUN_TEST(test15)
     display();
-    err += test16();
+    RUN_TEST(test16)
 
+    const int err = ERROR_COUNT;
     if (err)
         std::cerr << err << " ERROR(S) encountered!.\n";
     else
