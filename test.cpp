@@ -88,35 +88,35 @@ UNIT_TEST(test6, "Test multiple increments by remote function.")
 END_TEST
 
 UNIT_TEST(test7, "Test clearing counters with local reference.")
-    static Stats_c & localStatsInst = Stats_c::getInstance();
+    auto & localStatsInst = Stats_c::getInstance();
     localStatsInst.clearAllCounters();
 
     REQUIRE(localStatsInst.getCounter("local") == 0)
 END_TEST
 
 UNIT_TEST(test8, "Test initialisation with local reference.")
-    static Stats_c & localStatsInst = Stats_c::getInstance();
+    auto & localStatsInst = Stats_c::getInstance();
     localStatsInst.incCounter("local");
 
     REQUIRE(localStatsInst.getCounter("local") == 1)
 END_TEST
 
 UNIT_TEST(test9, "Test second incrementation with local reference.")
-    static Stats_c & localStatsInst = Stats_c::getInstance();
+    auto & localStatsInst = Stats_c::getInstance();
     localStatsInst.incCounter("local");
 
     REQUIRE(localStatsInst.getCounter("local") == 2)
 END_TEST
 
 UNIT_TEST(test10, "Test incrementation by 2 with local reference.")
-    static Stats_c & localStatsInst = Stats_c::getInstance();
+    auto & localStatsInst = Stats_c::getInstance();
     localStatsInst.incCounter("local", 2);
 
     REQUIRE(localStatsInst.getCounter("local") == 4)
 END_TEST
 
 UNIT_TEST(test11, "Test multiple increments with local reference.")
-    static Stats_c & localStatsInst = Stats_c::getInstance();
+    auto & localStatsInst = Stats_c::getInstance();
     for (int i = 0; i < 6; ++i)
         localStatsInst.incCounter("local");
 
@@ -124,7 +124,7 @@ UNIT_TEST(test11, "Test multiple increments with local reference.")
 END_TEST
 
 UNIT_TEST(test12, "Test multiple increments by 5 with local reference.")
-    static Stats_c & localStatsInst = Stats_c::getInstance();
+    auto & localStatsInst = Stats_c::getInstance();
     for (int i = 0; i < 3; ++i)
         localStatsInst.incCounter("local", 5);
 
@@ -132,7 +132,7 @@ UNIT_TEST(test12, "Test multiple increments by 5 with local reference.")
 END_TEST
 
 UNIT_TEST(test13, "Test multiple increments by remote function.")
-    static Stats_c & localStatsInst = Stats_c::getInstance();
+    auto & localStatsInst = Stats_c::getInstance();
     remoteFunction(7);
 
     REQUIRE(localStatsInst.getCounter("local") == 25)
