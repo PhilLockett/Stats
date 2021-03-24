@@ -32,17 +32,20 @@
  * Implementation of the unit test macros.
  */
 
+#define VERBOSE_ON UnitTest_c::getInstance().setVerbose(true);
+#define VERBOSE_OFF UnitTest_c::getInstance().setVerbose(false);
+
 #define UNIT_TEST(func, desc) \
 void func(void) {\
-    UnitTest_c::progress(#func, desc);
+    UnitTest_c::getInstance().progress(#func, desc);
 
 #define END_TEST }
 
-#define REQUIRE(cond) if (!(cond)) UnitTest_c::failure(#cond);
+#define REQUIRE(cond) if (!(cond)) UnitTest_c::getInstance().failure(#cond);
 
 #define RUN_TEST(func)    func();
 
-#define ERROR_COUNT UnitTest_c::getErrorCount()
+#define ERROR_COUNT UnitTest_c::getInstance().getErrorCount()
 
 /**
  * @section unit test context data.
@@ -57,7 +60,7 @@ private:
     UnitTest_c(void) {}
     virtual ~UnitTest_c(void) {}
 
-    void _display(std::ostream &os) const;
+    void display(std::ostream &os) const;
 
     static std::string function;
     static std::string description;
@@ -65,25 +68,20 @@ private:
     static bool verbose;
     static int errors;
 
-    void _setVerbose(bool state) { verbose = state; }
-    void _progress(const std::string & func, const std::string & desc);
-    void _failure(const std::string & cond);
-    int _getErrorCount(void) const { return errors; }
-
 
 public:
 //- Delete the copy constructor and assignement operator.
     UnitTest_c(const UnitTest_c &) = delete;
     void operator=(const UnitTest_c &) = delete;
 
-    friend std::ostream & operator<<(std::ostream &os, const UnitTest_c &A) { A._display(os); return os; }
+    friend std::ostream & operator<<(std::ostream &os, const UnitTest_c &A) { A.display(os); return os; }
 
     static UnitTest_c & getInstance() { static UnitTest_c instance; return instance; }
 
-    static void setVerbose(bool state = true) { getInstance()._setVerbose(state); }
-    static void progress(const std::string & func, const std::string & desc) { getInstance()._progress(func, desc); }
-    static void failure(const std::string & cond) { getInstance()._failure(cond); }
-    static int getErrorCount(void) { return getInstance()._getErrorCount(); }
+    static void setVerbose(bool state = true) { verbose = state; }
+    static void progress(const std::string & func, const std::string & desc);
+    static void failure(const std::string & cond);
+    static int getErrorCount(void) { return errors; }
 
 };
 

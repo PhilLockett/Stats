@@ -38,14 +38,14 @@ int UnitTest_c::errors = 0;
  *
  * @param  os - Output stream.
  */
-void UnitTest_c::_display(std::ostream &os) const
+void UnitTest_c::display(std::ostream &os) const
 {
      os << "\tFunction:\t" << function << "()\n";
      os << "\tDescription:\t" << description << "()\n";
      os << "\tVerbose:\t" << verbose << '\n';
 }
 
-void UnitTest_c::_progress(const std::string & func, const std::string & desc)
+void UnitTest_c::progress(const std::string & func, const std::string & desc)
 {
     function = func;
     description = desc;
@@ -54,7 +54,7 @@ void UnitTest_c::_progress(const std::string & func, const std::string & desc)
         std::cout << '\t' << function << "() - " << description << '\n';
 }
 
-void UnitTest_c::_failure(const std::string & cond)
+void UnitTest_c::failure(const std::string & cond)
 {
     errors++;
     condition = cond;
