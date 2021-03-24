@@ -42,6 +42,11 @@
 extern void remoteFunction(int count);
 
 
+/**
+ * @section test statistics using direct calls to the static singleton.
+ *
+ * All of these are interdependent.
+ */
 UNIT_TEST(test0, "Test clearing counters with direct access.")
     Stats_c::clearAllCounters();
 
@@ -81,6 +86,14 @@ NEXT_CASE(test6, "Test multiple increments by remote function.")
     REQUIRE(Stats_c::getCounter("remote") == 22)
 END_TEST
 
+
+/**
+ * @section test statistics using a local reference to the static singleton.
+ *
+ * All of these are interdependent. Most of these test using the local 
+ * reference but tests at the end use direct calls to the static singleton
+ * to show either way is possible.
+ */
 UNIT_TEST(test7, "Test clearing counters with local reference.")
     auto & localStatsInst = Stats_c::getInstance();
     localStatsInst.clearAllCounters();
@@ -134,6 +147,10 @@ NEXT_CASE(test15, "Test set new counter to a specific value.")
     REQUIRE(Stats_c::getCounter("remote") == 27)
 END_TEST
 
+
+/**
+ * @section test a large number of counters being used.
+ */
 std::string getCounterName(int a)
 {
     std::stringstream ss;
