@@ -21,10 +21,11 @@
  * Unit test code for the Statistics Implementation.
  *
  * Build using:
- *    g++ -c -o Stats_c.o Stats_c.cpp
- *    g++ -c -o test.o test.cpp
- *    g++ -c -o test2.o test2.cpp
- *    g++ -o test test.o test2.o Stats_c.o 
+ *    g++ -std=c++20 -c -o test.o test.cpp
+ *    g++ -std=c++20 -c -o test2.o test2.cpp
+ *    g++ -std=c++20 -c -o Stats_c.o Stats_c.cpp
+ *    g++ -std=c++20 -c -o unittest.o unittest.cpp
+ *    g++ -std=c++20 -o test test.o test2.o Stats_c.o unittest.o
  *
  * Test using:
  *    ./test
