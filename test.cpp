@@ -96,43 +96,43 @@ END_TEST
  * to show either way is possible.
  */
 UNIT_TEST(test7, "Test clearing counters with local reference.")
-    auto & localStatsInst = Stats_c::getInstance();
-    localStatsInst.clearAllCounters();
+    auto & stats = Stats_c::getInstance(); // Could be a reference global to the file.
+    stats.clearAllCounters();
 
-    REQUIRE(localStatsInst.getCounter("local") == 0)
+    REQUIRE(stats.getCounter("local") == 0)
 
 NEXT_CASE(test8, "Test initialisation with local reference.")
-    localStatsInst.incCounter("local");
+    stats.incCounter("local");
 
-    REQUIRE(localStatsInst.getCounter("local") == 1)
+    REQUIRE(stats.getCounter("local") == 1)
 
 NEXT_CASE(test9, "Test second incrementation with local reference.")
-    localStatsInst.incCounter("local");
+    stats.incCounter("local");
 
-    REQUIRE(localStatsInst.getCounter("local") == 2)
+    REQUIRE(stats.getCounter("local") == 2)
 
 NEXT_CASE(test10, "Test incrementation by 2 with local reference.")
-    localStatsInst.incCounter("local", 2);
+    stats.incCounter("local", 2);
 
-    REQUIRE(localStatsInst.getCounter("local") == 4)
+    REQUIRE(stats.getCounter("local") == 4)
 
 NEXT_CASE(test11, "Test multiple increments with local reference.")
     for (int i = 0; i < 6; ++i)
-        localStatsInst.incCounter("local");
+        stats.incCounter("local");
 
-    REQUIRE(localStatsInst.getCounter("local") == 10)
+    REQUIRE(stats.getCounter("local") == 10)
 
 NEXT_CASE(test12, "Test multiple increments by 5 with local reference.")
     for (int i = 0; i < 3; ++i)
-        localStatsInst.incCounter("local", 5);
+        stats.incCounter("local", 5);
 
-    REQUIRE(localStatsInst.getCounter("local") == 25)
+    REQUIRE(stats.getCounter("local") == 25)
 
 NEXT_CASE(test13, "Test multiple increments by remote function.")
     remoteFunction(7);
 
-    REQUIRE(localStatsInst.getCounter("local") == 25)
-    REQUIRE(localStatsInst.getCounter("remote") == 27)
+    REQUIRE(stats.getCounter("local") == 25)
+    REQUIRE(stats.getCounter("remote") == 27)
 
 NEXT_CASE(test14, "Test set existing counter to a specific value.")
     Stats_c::setCounter("local", 20);
