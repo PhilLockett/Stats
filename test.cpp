@@ -160,7 +160,7 @@ std::string getCounterName(int a)
     return ss.str();
 }
 UNIT_TEST(test16, "Test large number of counters.")
-    const int COUNTERS = 200000;
+    const int COUNTERS = 250000;
     const int INCREMENTS = 4;
 
     Stats_c::clearAllCounters();
