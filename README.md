@@ -33,6 +33,8 @@ following unix/linux commands:
 
     git clone https://github.com/PhilLockett/Stats.git
     cd Stats/
+    cp ../UnitTest/unittest.cpp .
+    cp ../UnitTest/unittest.h .
     make
     ./test
 
