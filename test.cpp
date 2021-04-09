@@ -203,7 +203,7 @@ int runTests(void)
 
     RUN_TEST(test16)
 
-    const int err = ERROR_COUNT;
+    const int err = FINISHED;
     if (err)
         std::cerr << err << " ERROR(S) encountered!.\n";
     else
