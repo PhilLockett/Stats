@@ -151,7 +151,7 @@ END_TEST
 
 
 /**
- * @section test a large number of counters being used.
+ * @section test a large number of counters incremented by various amounts.
  */
 std::string getCounterName(int a)
 {
@@ -160,27 +160,29 @@ std::string getCounterName(int a)
 
     return ss.str();
 }
-UNIT_TEST(test16, "Test large number of counters.")
+UNIT_TEST(test16, "Test large number of counters incremented by various amounts.")
     const int COUNTERS = 250000;
     const int INCREMENTS = 4;
 
     Stats_c::clearAllCounters();
 
-    for (int j = 0; j < INCREMENTS; ++j)
+    int total = 0;
+    for (int j = 1; j <= INCREMENTS; ++j)
     {
         if (IS_VERBOSE)
-            std::cout << "\tIncrementing.\n";
+            std::cout << "\tIncrementing by " << j << ".\n";
         for (int i = 0; i < COUNTERS; ++i)
         {
-            Stats_c::incCounter(getCounterName(i));
+            Stats_c::incCounter(getCounterName(i), j);
         }
+        total += j;
     }
 
     if (IS_VERBOSE)
         std::cout << "\tChecking.\n";
     for (int i = 0; i < COUNTERS; ++i)
     {
-        REQUIRE(Stats_c::getCounter(getCounterName(i)) == INCREMENTS)
+        REQUIRE(Stats_c::getCounter(getCounterName(i)) == total)
     }
 END_TEST
 
