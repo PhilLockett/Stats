@@ -168,7 +168,7 @@ UNIT_TEST(test16, "Test large number of counters.")
     for (int j = 0; j < INCREMENTS; ++j)
     {
         if (IS_VERBOSE)
-            std::cout << "\t\tIncrementing.\n";
+            std::cout << "\tIncrementing.\n";
         for (int i = 0; i < COUNTERS; ++i)
         {
             Stats_c::incCounter(getCounterName(i));
@@ -176,7 +176,7 @@ UNIT_TEST(test16, "Test large number of counters.")
     }
 
     if (IS_VERBOSE)
-        std::cout << "\t\tChecking.\n";
+        std::cout << "\tChecking.\n";
     for (int i = 0; i < COUNTERS; ++i)
     {
         REQUIRE(Stats_c::getCounter(getCounterName(i)) == INCREMENTS)
