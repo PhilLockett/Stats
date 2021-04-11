@@ -34,6 +34,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 #include "Stats_c.h"
 
@@ -184,6 +185,56 @@ UNIT_TEST(test16, "Test large number of counters.")
 END_TEST
 
 
+/**
+ * @section test a large number of counters being used by different threads.
+ */
+static std::mutex displayMutex;
+
+void worker(const int count)
+{
+    if (IS_VERBOSE)
+    {
+        std::lock_guard<std::mutex> lock(displayMutex);
+        std::cout << "\tthread " << std::this_thread::get_id() << " working\n";
+    }
+    for (int i = 0; i < count; ++i)
+    {
+        Stats_c::incCounter(getCounterName(i));
+    }
+    if (IS_VERBOSE)
+    {
+        std::lock_guard<std::mutex> lock(displayMutex);
+        std::cout << "\tthread " << std::this_thread::get_id() << " finished\n";
+    }
+}
+
+void startWorkers(const int threads, const int count)
+{
+    std::vector<std::future<void>> futures;
+    futures.reserve(threads);
+    for (int i = 0; i < threads; ++i)
+    {
+        futures.push_back(std::async(std::launch::async, worker, count));
+    }
+}
+
+UNIT_TEST(test17, "Test large number of counters used by different threads.")
+    const int COUNTERS = 25000;
+    const int THREADS = 10;
+
+    Stats_c::clearAllCounters();
+
+    startWorkers(THREADS, COUNTERS);
+
+    if (IS_VERBOSE)
+        std::cout << "\tChecking.\n";
+    for (int i = 0; i < COUNTERS; ++i)
+    {
+        REQUIRE(Stats_c::getCounter(getCounterName(i)) == THREADS)
+    }
+END_TEST
+
+
 void display(void)
 {
     if (IS_VERBOSE)
@@ -202,6 +253,7 @@ int runTests(void)
 //    display();
 
     RUN_TEST(test16)
+    RUN_TEST(test17)
 
     const int err = FINISHED;
     if (err)
