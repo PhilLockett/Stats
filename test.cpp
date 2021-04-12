@@ -190,10 +190,10 @@ END_TEST
 /**
  * @section test a large number of counters being used by different threads.
  */
-static std::mutex displayMutex;
-
 void worker(const int count)
 {
+static std::mutex displayMutex;
+
     if (IS_VERBOSE)
     {
         std::lock_guard<std::mutex> lock(displayMutex);
