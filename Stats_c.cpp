@@ -34,6 +34,7 @@
  */
 int Stats_c::_getCounter(const std::string & key) const
 {
+    std::lock_guard<std::mutex> lock(countsMutex);
     auto it = counts.find(key);
     if (it == counts.end())
     {
@@ -93,6 +94,7 @@ void Stats_c::_incCounter(const std::string & key, int step)
  */
 void Stats_c::_display(std::ostream &os) const
 {
+    std::lock_guard<std::mutex> lock(countsMutex);
     for (auto& x: counts)
     {
         os << "\t" << x.first << "\t" << x.second << "\n";

@@ -65,7 +65,7 @@ private:
     void _setCounter(const std::string & key, int value);
     void _incCounter(const std::string & key, int step);
 
-    std::mutex countsMutex;
+    mutable std::mutex countsMutex;
     std::unordered_map<std::string, int> counts;
 
 };
