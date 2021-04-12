@@ -59,7 +59,7 @@ private:
 
     void _display(std::ostream &os) const;
 
-    void _clearAllCounters(void) { counts.clear(); }
+    void _clearAllCounters(void) { std::lock_guard<std::mutex> lock(countsMutex); counts.clear(); }
 
     int _getCounter(const std::string & key) const;
     void _setCounter(const std::string & key, int value);
