@@ -194,10 +194,12 @@ void worker(const int count)
 {
 static std::mutex displayMutex;
 
+    std::stringstream id;
+    id << "Tread " << std::this_thread::get_id();
     if (IS_VERBOSE)
     {
         std::lock_guard<std::mutex> lock(displayMutex);
-        std::cout << "\tthread " << std::this_thread::get_id() << " working\n";
+        std::cout << "\t" << id.str() << " working\n";
     }
     for (int i = 0; i < count; ++i)
     {
@@ -206,7 +208,7 @@ static std::mutex displayMutex;
     if (IS_VERBOSE)
     {
         std::lock_guard<std::mutex> lock(displayMutex);
-        std::cout << "\tthread " << std::this_thread::get_id() << " finished\n";
+        std::cout << "\t" << id.str() << " finished\n";
     }
 }
 
