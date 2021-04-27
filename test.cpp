@@ -198,7 +198,7 @@ void worker(const int count)
 static std::mutex displayMutex;
 
     std::stringstream id;
-    id << "Tread " << std::this_thread::get_id();
+    id << "Thread " << std::this_thread::get_id();
     if (IS_VERBOSE)
     {
         std::lock_guard<std::mutex> lock(displayMutex);
