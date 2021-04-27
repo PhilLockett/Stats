@@ -153,7 +153,7 @@ END_TEST
 /**
  * @section test a large number of counters incremented by various amounts.
  */
-std::string getCounterName(int a)
+std::string genCounterName(int a)
 {
     std::stringstream ss;
     ss << "counter" << a;
@@ -173,7 +173,7 @@ UNIT_TEST(test16, "Test large number of counters incremented by various amounts.
             std::cout << "\tIncrementing by " << j << ".\n";
         for (int i = 0; i < COUNTERS; ++i)
         {
-            Stats_c::incCounter(getCounterName(i), j);
+            Stats_c::incCounter(genCounterName(i), j);
         }
         total += j;
     }
@@ -183,7 +183,7 @@ UNIT_TEST(test16, "Test large number of counters incremented by various amounts.
         std::cout << "\tChecking.\n";
     for (int i = 0; i < COUNTERS; ++i)
     {
-        REQUIRE(Stats_c::getCounter(getCounterName(i)) == total)
+        REQUIRE(Stats_c::getCounter(genCounterName(i)) == total)
     }
     PROFILE_ON
 
@@ -206,7 +206,7 @@ static std::mutex displayMutex;
     }
     for (int i = 0; i < count; ++i)
     {
-        Stats_c::incCounter(getCounterName(i));
+        Stats_c::incCounter(genCounterName(i));
     }
     if (IS_VERBOSE)
     {
@@ -238,7 +238,7 @@ UNIT_TEST(test17, "Test large number of counters used by different threads.")
         std::cout << "\tChecking.\n";
     for (int i = 0; i < COUNTERS; ++i)
     {
-        REQUIRE(Stats_c::getCounter(getCounterName(i)) == THREADS)
+        REQUIRE(Stats_c::getCounter(genCounterName(i)) == THREADS)
     }
     PROFILE_ON
 
