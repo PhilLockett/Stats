@@ -35,6 +35,7 @@
  * Implementation of the Statistics Singleton.
  */
 
+template <typename T=int>
 class Stats_c
 {
 public:
