@@ -50,42 +50,43 @@ extern void remoteFunction(int count);
  * All of these are interdependent.
  */
 UNIT_TEST(test0, "Test clearing counters with direct access.")
-    Stats_c::clearAllCounters();
+    Stats_c<>::clearAllCounters();
 
-    REQUIRE(Stats_c::getCounter("local") == 0)
+    REQUIRE(Stats_c<>::getCounter("local") == 0)
 
 NEXT_CASE(test1, "Test initialisation with direct access.")
-    Stats_c::incCounter("local");
+    Stats_c<>::incCounter("local");
 
-    REQUIRE(Stats_c::getCounter("local") == 1)
+    REQUIRE(Stats_c<>::getCounter("local") == 1)
 
 NEXT_CASE(test2, "Test second incrementation with direct access.")
-    Stats_c::incCounter("local");
+    Stats_c<>::incCounter("local");
 
-    REQUIRE(Stats_c::getCounter("local") == 2)
+    REQUIRE(Stats_c<>::getCounter("local") == 2)
 
 NEXT_CASE(test3, "Test incrementation by 2 with direct access.")
-    Stats_c::incCounter("local", 2);
+    Stats_c<>::incCounter("local", 2);
 
-    REQUIRE(Stats_c::getCounter("local") == 4)
+    REQUIRE(Stats_c<>::getCounter("local") == 4)
 
 NEXT_CASE(test4, "Test multiple increments with direct access.")
     for (int i = 0; i < 10; ++i)
-        Stats_c::incCounter("local");
+        Stats_c<>::incCounter("local");
 
-    REQUIRE(Stats_c::getCounter("local") == 14)
+    REQUIRE(Stats_c<>::getCounter("local") == 14)
 
 NEXT_CASE(test5, "Test multiple increments by 5 with direct access.")
     for (int i = 0; i < 4; ++i)
-        Stats_c::incCounter("local", 5);
+        Stats_c<>::incCounter("local", 5);
 
-    REQUIRE(Stats_c::getCounter("local") == 34)
+    REQUIRE(Stats_c<>::getCounter("local") == 34)
 
 NEXT_CASE(test6, "Test multiple increments by remote function.")
     remoteFunction(2);
 
-    REQUIRE(Stats_c::getCounter("local") == 34)
-    REQUIRE(Stats_c::getCounter("remote") == 22)
+    REQUIRE(Stats_c<>::getCounter("local") == 34)
+    REQUIRE(Stats_c<>::getCounter("remote") == 22)
+
 END_TEST
 
 
@@ -97,7 +98,7 @@ END_TEST
  * to show either way is possible.
  */
 UNIT_TEST(test7, "Test clearing counters with local reference.")
-    auto & stats = Stats_c::getInstance(); // Could be a reference global to the file.
+    auto & stats = Stats_c<>::getInstance(); // Could be a reference global to the file.
     stats.clearAllCounters();
 
     REQUIRE(stats.getCounter("local") == 0)
@@ -136,17 +137,20 @@ NEXT_CASE(test13, "Test multiple increments by remote function.")
     REQUIRE(stats.getCounter("remote") == 27)
 
 NEXT_CASE(test14, "Test set existing counter to a specific value.")
-    Stats_c::setCounter("local", 20);
+    Stats_c<>::setCounter("local", 20);
 
-    REQUIRE(Stats_c::getCounter("local") == 20)
-    REQUIRE(Stats_c::getCounter("remote") == 27)
+    REQUIRE(Stats_c<>::getCounter("local") == 20)
+    REQUIRE(Stats_c<>::getCounter("remote") == 27)
 
 NEXT_CASE(test15, "Test set new counter to a specific value.")
-    Stats_c::setCounter("test", 10);
+    Stats_c<>::setCounter("test", 10);
 
-    REQUIRE(Stats_c::getCounter("test") == 10)
-    REQUIRE(Stats_c::getCounter("local") == 20)
-    REQUIRE(Stats_c::getCounter("remote") == 27)
+    REQUIRE(Stats_c<>::getCounter("test") == 10)
+    REQUIRE(Stats_c<>::getCounter("local") == 20)
+    REQUIRE(Stats_c<>::getCounter("remote") == 27)
+
+    std::cout << Stats_c<>::getInstance();
+
 END_TEST
 
 
@@ -164,7 +168,7 @@ UNIT_TEST(test16, "Test large number of counters incremented by various amounts.
     const int COUNTERS = 250000;
     const int INCREMENTS = 4;
 
-    Stats_c::clearAllCounters();
+    Stats_c<>::clearAllCounters();
 
     int total = 0;
     for (int j = 1; j <= INCREMENTS; ++j)
@@ -173,7 +177,7 @@ UNIT_TEST(test16, "Test large number of counters incremented by various amounts.
             std::cout << "\tIncrementing by " << j << ".\n";
         for (int i = 0; i < COUNTERS; ++i)
         {
-            Stats_c::incCounter(genCounterName(i), j);
+            Stats_c<>::incCounter(genCounterName(i), j);
         }
         total += j;
     }
@@ -183,7 +187,7 @@ UNIT_TEST(test16, "Test large number of counters incremented by various amounts.
         std::cout << "\tChecking.\n";
     for (int i = 0; i < COUNTERS; ++i)
     {
-        REQUIRE(Stats_c::getCounter(genCounterName(i)) == total)
+        REQUIRE(Stats_c<>::getCounter(genCounterName(i)) == total)
     }
     PROFILE_ON
 
@@ -206,7 +210,7 @@ static std::mutex displayMutex;
     }
     for (int i = 0; i < count; ++i)
     {
-        Stats_c::incCounter(genCounterName(i));
+        Stats_c<>::incCounter(genCounterName(i));
     }
     if (IS_VERBOSE)
     {
@@ -229,7 +233,7 @@ UNIT_TEST(test17, "Test large number of counters used by different threads.")
     const int COUNTERS = 25000;
     const int THREADS = 10;
 
-    Stats_c::clearAllCounters();
+    Stats_c<>::clearAllCounters();
 
     startWorkers(THREADS, COUNTERS);
 
@@ -238,7 +242,7 @@ UNIT_TEST(test17, "Test large number of counters used by different threads.")
         std::cout << "\tChecking.\n";
     for (int i = 0; i < COUNTERS; ++i)
     {
-        REQUIRE(Stats_c::getCounter(genCounterName(i)) == THREADS)
+        REQUIRE(Stats_c<>::getCounter(genCounterName(i)) == THREADS)
     }
     PROFILE_ON
 
@@ -248,7 +252,7 @@ END_TEST
 void display(void)
 {
     if (IS_VERBOSE)
-        std::cout << "Display Current Statistics:\n"  << Stats_c::getInstance() << '\n';
+        std::cout << "Display Current Statistics:\n"  << Stats_c<>::getInstance() << '\n';
 }
 
 int runTests(void)

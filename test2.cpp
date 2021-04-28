@@ -24,7 +24,6 @@
 #include "Stats_c.h"
 
 
-
 /**
  * Dummy remote function to test Statistics Implementation.
  *
@@ -34,12 +33,12 @@
 void remoteFunction(int count)
 {
 //- Do some work. Example that increments the counter with a known value.
-    Stats_c::incCounter("remote", 20);
+    Stats_c<>::incCounter("remote", 20);
 
 //- Do some more work. Example that increments the counter one step at a time.
     for (int i = 0; i < count; ++i)
     {
-        Stats_c::incCounter("remote");
+        Stats_c<>::incCounter("remote");
     }
 }
 

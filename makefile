@@ -1,7 +1,6 @@
 # Makefile for Logger unit tests.
 objects  = test.o
 objects += test2.o
-objects += Stats_c.o
 objects += unittest.o
 
 headers  = Stats_c.h
