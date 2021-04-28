@@ -35,6 +35,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <map>
 
 #include "Stats_c.h"
 
@@ -274,6 +275,43 @@ UNIT_TEST(test18, "Test two sets of counters using different precision.")
 
 END_TEST
 
+UNIT_TEST(test19, "Test iterating over all statistics.")
+
+    // Use a local reference for convenience.
+    auto & stats = Stats_c<>::getInstance();
+    stats.clearAllCounters();
+
+    // Set up dumy data.
+    std::map<std::string, int> data{
+        { "alpha", 1 },
+        { "beta", 6 },
+        { "gamma", 27 },
+        { "delta", 556 },
+    };
+    for (auto & [letter, frequency] : data)
+    {
+        stats.incCounter(letter, frequency);
+    }
+
+    REQUIRE(data.size() == Stats_c<>::getInstance().size())
+
+    // Check basic functionality of Iterator.
+    Stats_c<>::Iterator it = Stats_c<>::getInstance().begin();
+    ++it;
+    REQUIRE(it->second == data[it->first])
+
+    // Iterate over all statistics and compare to data.
+    int items{};
+    for (auto & [counter, count] : Stats_c<>::getInstance())
+    {
+        REQUIRE(count == data[counter])
+        ++items;
+    }
+    REQUIRE(items == 4)
+
+END_TEST
+
+
 template<typename T=int>
 void display(void)
 {
@@ -297,6 +335,8 @@ int runTests(void)
     RUN_TEST(test18)
     // display<>();
     // display<size_t>();
+
+    RUN_TEST(test19)
 
     const int err = FINISHED;
     if (err)

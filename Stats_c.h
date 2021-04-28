@@ -35,10 +35,12 @@
  * Implementation of the Statistics Singleton.
  */
 
-template <typename T=int>
+template<typename T=int>
 class Stats_c
 {
 public:
+    using Iterator = std::unordered_map<std::string, T>::const_iterator;
+
 //- Delete the copy constructor and assignement operator.
     Stats_c(const Stats_c &) = delete;
     void operator=(const Stats_c &) = delete;
@@ -52,6 +54,10 @@ public:
     static T getCounter(const std::string & key) { return getInstance()._getCounter(key); }
     static void setCounter(const std::string & key, T value=0) { getInstance()._setCounter(key, value); }
     static void incCounter(const std::string & key, T step=1) { getInstance()._incCounter(key, step); }
+
+    static size_t size(void) { return getInstance().counts.size(); }
+    static Iterator begin(void) { return getInstance().counts.begin(); }
+    static Iterator end(void) { return getInstance().counts.end(); }
 
 private:
 //- Hide the default constructor and destructor.
