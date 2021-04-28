@@ -98,7 +98,8 @@ END_TEST
  * to show either way is possible.
  */
 UNIT_TEST(test7, "Test clearing counters with local reference.")
-    auto & stats = Stats_c<>::getInstance(); // Could be a reference global to the file.
+    // Could be a reference global used by the entire source file.
+    auto & stats = Stats_c<>::getInstance();
     stats.clearAllCounters();
 
     REQUIRE(stats.getCounter("local") == 0)
@@ -249,10 +250,37 @@ UNIT_TEST(test17, "Test large number of counters used by different threads.")
 END_TEST
 
 
+UNIT_TEST(test18, "Test two sets of counters using different precision.")
+
+    // Use a local reference for convenience.
+    auto & stats = Stats_c<>::getInstance();
+    stats.clearAllCounters();
+
+    auto & counters = Stats_c<size_t>::getInstance();
+    counters.clearAllCounters();
+
+    stats.incCounter("local");
+    stats.incCounter("local");
+    stats.incCounter("stats");
+
+    counters.incCounter("local");
+    counters.incCounter("counters", 3);
+
+    REQUIRE(stats.getCounter("local") == 2)
+    REQUIRE(stats.getCounter("stats") == 1)
+    REQUIRE(stats.getCounter("counters") == 0)
+
+    REQUIRE(counters.getCounter("local") == 1)
+    REQUIRE(counters.getCounter("stats") == 0)
+    REQUIRE(counters.getCounter("counters") == 3)
+
+END_TEST
+
+template<typename T=int>
 void display(void)
 {
     if (IS_VERBOSE)
-        std::cout << "Display Current Statistics:\n"  << Stats_c<>::getInstance() << '\n';
+        std::cout << "Display Current Statistics:\n"  << Stats_c<T>::getInstance() << '\n';
 }
 
 int runTests(void)
@@ -261,13 +289,16 @@ int runTests(void)
 //    VERBOSE_OFF
 
     RUN_TEST(test0)
-//    display();
+    // display<>();
 
     RUN_TEST(test7)
-//    display();
+    // display<>();
 
     RUN_TEST(test16)
     RUN_TEST(test17)
+    RUN_TEST(test18)
+    // display<>();
+    // display<size_t>();
 
     const int err = FINISHED;
     if (err)
