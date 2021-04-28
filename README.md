@@ -43,5 +43,6 @@ following unix/linux commands:
 This code has the following points of interest:
 
   * The statistics counter code (Stats_c) is implemented as a singleton.
-  * Keys are implemented as strings for convenience.
-  * Any counter can be updated from anywhere in the system.
+  * Stats_c is implemented as a template with a default counter type of int.
+  * Keys are implemented as std::strings for convenience.
+  * Any counter can be updated from any point in the system.
