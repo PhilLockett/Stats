@@ -150,8 +150,6 @@ NEXT_CASE(test15, "Test set new counter to a specific value.")
     REQUIRE(Stats_c<>::getCounter("local") == 20)
     REQUIRE(Stats_c<>::getCounter("remote") == 27)
 
-    std::cout << Stats_c<>::getInstance();
-
 END_TEST
 
 
