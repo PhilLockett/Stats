@@ -23,9 +23,8 @@
  * Build using:
  *    g++ -std=c++20 -c -o test.o test.cpp
  *    g++ -std=c++20 -c -o test2.o test2.cpp
- *    g++ -std=c++20 -c -o Stats_c.o Stats_c.cpp
  *    g++ -std=c++20 -c -o unittest.o unittest.cpp
- *    g++ -std=c++20 -o test test.o test2.o Stats_c.o unittest.o
+ *    g++ -std=c++20 -o test test.o test2.o unittest.o
  *
  * Test using:
  *    ./test
@@ -249,6 +248,9 @@ UNIT_TEST(test17, "Test large number of counters used by different threads.")
 END_TEST
 
 
+/**
+ * @section test counters using different precision are independent.
+ */
 UNIT_TEST(test18, "Test two sets of counters using different precision.")
 
     // Use a local reference for convenience.
@@ -275,6 +277,10 @@ UNIT_TEST(test18, "Test two sets of counters using different precision.")
 
 END_TEST
 
+
+/**
+ * @section test iterator functionality.
+ */
 UNIT_TEST(test19, "Test iterating over all statistics.")
 
     // Use a local reference for convenience.
@@ -312,6 +318,9 @@ UNIT_TEST(test19, "Test iterating over all statistics.")
 END_TEST
 
 
+/**
+ * @section run the tests.
+ */
 template<typename T=int>
 void display(void)
 {
