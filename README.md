@@ -1,6 +1,6 @@
 # Stats_c
 
-A simple statistics counter implemented as a singleton.
+A simple statistics counter implemented as a templated singleton.
 
 ## Overview
 
@@ -9,16 +9,16 @@ behaviour as well as counting items. It should allow any counter to be added
 or updated from anywhere in the system.
 
 This is a simple statistics counter implemented as a singleton. The counts are 
-of type int, but can easily be customised, or even converted to a template. 
-The keys are simply C++ string types for convenience, but speed is 
-compromised. If the key is not found, it is added to the list, otherwise it 
-is updated. The keys a system wide, so if the same key is used through out the 
-system, the same counter is updated.
+by default of type int, but the template allows for any type that supports the
+increment operator. 
 
-The stats counter code is wholly contained in the files 'Stats_c.cpp' and 
-'Stats_c.h'. All other files are to support the unit test code. The code is 
-liberally commented. The test code exercises the whole API and illustrates 
-the usage.
+The keys are simply std::string types for convenience. If the key is not found,
+it is added to the list, otherwise it is updated. The keys a system wide, so if
+the same key is used through out the system, the same counter is updated.
+
+The stats counter code is wholly contained in the file 'Stats_c.h'. All other 
+files are to support the unit test code. The code is liberally commented. The
+test code exercises the whole API and illustrates usage.
 
 ## Cloning and Running
 
@@ -46,3 +46,4 @@ This code has the following points of interest:
   * Stats_c is implemented as a template with a default counter type of int.
   * Keys are implemented as std::strings for convenience.
   * Any counter can be updated from any point in the system.
+  * The constant iterator allows the set of counters to be iterated over.
