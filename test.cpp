@@ -156,7 +156,7 @@ END_TEST
 /**
  * @section test a large number of counters incremented by various amounts.
  */
-std::string genCounterName(int a)
+static std::string genCounterName(int a)
 {
     std::stringstream ss;
     ss << "counter" << a;
@@ -196,7 +196,7 @@ END_TEST
 /**
  * @section test a large number of counters being used by different threads.
  */
-void worker(const int count)
+static void worker(const int count)
 {
 static std::mutex displayMutex;
 
@@ -218,7 +218,7 @@ static std::mutex displayMutex;
     }
 }
 
-void startWorkers(const int threads, const int count)
+static void startWorkers(const int threads, const int count)
 {
     std::vector<std::future<void>> futures;
     futures.reserve(threads);
@@ -322,13 +322,13 @@ END_TEST
  * @section run the tests.
  */
 template<typename T=int>
-void display(void)
+static void display(void)
 {
     if (IS_VERBOSE)
         std::cout << "Display Current Statistics:\n"  << Stats_c<T>::getInstance() << '\n';
 }
 
-int runTests(void)
+static int runTests(void)
 {
     std::cout << "Executing all tests.\n";
 //    VERBOSE_OFF
