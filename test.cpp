@@ -299,10 +299,10 @@ UNIT_TEST(test19, "Test iterating over all statistics.")
         stats.incCounter(letter, frequency);
     }
 
-    REQUIRE(data.size() == Stats_c<>::getInstance().size())
+    REQUIRE(data.size() == Stats_c<>::size())
 
     // Check basic functionality of Iterator.
-    Stats_c<>::Iterator it = Stats_c<>::getInstance().begin();
+    Stats_c<>::Iterator it = Stats_c<>::begin();
     ++it;
     REQUIRE(it->second == data[it->first])
 
