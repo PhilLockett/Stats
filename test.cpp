@@ -181,12 +181,15 @@ UNIT_TEST(test16, "Test large number of counters incremented by various amounts.
         total += j;
     }
 
-    PROFILE_OFF
     if (IS_VERBOSE)
         std::cout << "\tChecking.\n";
-    for (int i = 0; i < COUNTERS; ++i)
+    REQUIRE(Stats_c<>::size() == COUNTERS)
+
+    PROFILE_OFF
+    for (auto & [counter, count] : Stats_c<>::getInstance())
     {
-        REQUIRE(Stats_c<>::getCounter(genCounterName(i)) == total)
+        REQUIRE(count == total)
+        REQUIRE(Stats_c<>::getCounter(counter) == total)
     }
     PROFILE_ON
 
@@ -236,12 +239,15 @@ UNIT_TEST(test17, "Test large number of counters used by different threads.")
 
     startWorkers(THREADS, COUNTERS);
 
-    PROFILE_OFF
     if (IS_VERBOSE)
         std::cout << "\tChecking.\n";
-    for (int i = 0; i < COUNTERS; ++i)
+    REQUIRE(Stats_c<>::size() == COUNTERS)
+
+    PROFILE_OFF
+    for (auto & [counter, count] : Stats_c<>::getInstance())
     {
-        REQUIRE(Stats_c<>::getCounter(genCounterName(i)) == THREADS)
+        REQUIRE(count == THREADS)
+        REQUIRE(Stats_c<>::getCounter(counter) == THREADS)
     }
     PROFILE_ON
 
