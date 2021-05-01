@@ -46,4 +46,4 @@ This code has the following points of interest:
   * Stats_c is implemented as a template with a default counter type of int.
   * Keys are implemented as std::strings for convenience.
   * Any counter can be updated from any point in the system.
-  * The constant iterator allows the set of counters to be iterated over.
+  * The constant iterator allows the current set of counters to be iterated.
