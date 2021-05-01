@@ -295,10 +295,12 @@ UNIT_TEST(test19, "Test iterating over all statistics.")
 
     // Set up dumy data.
     std::map<std::string, int> data{
-        { "alpha", 1 },
-        { "beta", 6 },
-        { "gamma", 27 },
-        { "delta", 556 },
+        { "Sean Connery", 6 },
+        { "George Lazenby", 1 },
+        { "Roger Moore", 7 },
+        { "Timothy Dalton", 2 },
+        { "Pierce Brosnan", 4 },
+        { "Daniel Craig", 5 }
     };
     for (auto & [letter, frequency] : data)
     {
@@ -319,7 +321,7 @@ UNIT_TEST(test19, "Test iterating over all statistics.")
         REQUIRE(count == data[counter])
         ++items;
     }
-    REQUIRE(items == 4)
+    REQUIRE(items == data.size())
 
 END_TEST
 
