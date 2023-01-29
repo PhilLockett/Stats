@@ -5,16 +5,16 @@ A simple statistics counter implemented as a templated singleton.
 ## Overview
 
 A statistics counter is useful in a real time environment for mapping 
-behaviour as well as counting items. It should allow any counter to be added 
-or updated from anywhere in the system.
+behaviour as well as counting items. It should allow any counter to be 
+incremented or updated from anywhere in the system.
 
-This is a simple statistics counter implemented as a singleton. The counts are 
-by default of type int, but the template allows for any type that supports the
-increment operator. 
+This is a simple statistics counter implemented as a singleton. The counters 
+are by default of type int, but the template allows for any type that supports 
+the increment operator. 
 
-The keys are simply std::string types for convenience. If the key is not found,
-it is added to the list, otherwise it is updated. The keys a system wide, so if
-the same key is used through out the system, the same counter is updated.
+The keys are of type std::string for convenience. If a key is not found, a new 
+key is added to the list, otherwise it is updated. The keys are system wide, 
+so if the same key is used through out the system, the same counter is updated.
 
 The stats counter code is wholly contained in the file 'Stats_c.h'. All other 
 files are to support the unit test code. The code is liberally commented. The
