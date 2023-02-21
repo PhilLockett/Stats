@@ -160,10 +160,7 @@ END_TEST
  */
 static std::string genCounterName(int a)
 {
-    std::stringstream ss;
-    ss << "counter" << a;
-
-    return ss.str();
+    return "counter" + std::to_string(a);
 }
 UNIT_TEST(test16, "Test large number of counters incremented by various amounts.")
     const int COUNTERS = 250000;
