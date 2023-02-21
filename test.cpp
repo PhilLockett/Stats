@@ -35,6 +35,8 @@
 #include <sstream>
 #include <vector>
 #include <map>
+#include <thread>
+#include <mutex>
 
 #include "Stats_c.h"
 
