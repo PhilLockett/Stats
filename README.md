@@ -2,6 +2,8 @@
 
 A simple statistics counter implemented as a templated singleton.
 
+**USE AT OWN RISK.**
+
 ## Overview
 
 A statistics counter is useful in a real time environment for mapping 
