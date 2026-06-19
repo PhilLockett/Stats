@@ -5,6 +5,7 @@ objects += unittest.o
 
 headers  = Stats_c.h
 headers += unittest.h
+headers += Safe.h
 
 options = -std=c++20
 

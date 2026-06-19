@@ -38,6 +38,7 @@
 #include <thread>
 #include <mutex>
 
+#include "Safe.h"
 #include "Stats_c.h"
 
 #include "unittest.h"
@@ -198,6 +199,9 @@ END_TEST
 /**
  * @section test a large number of counters being used by different threads.
  */
+
+Safe<long> total{};
+
 static void worker(const int count)
 {
 static std::mutex displayMutex;
@@ -212,6 +216,7 @@ static std::mutex displayMutex;
     for (int i = 0; i < count; ++i)
     {
         Stats_c<>::incCounter(genCounterName(i));
+        total.inc();
     }
     if (IS_VERBOSE)
     {
@@ -239,8 +244,13 @@ UNIT_TEST(test17, "Test large number of counters used by different threads.")
     startWorkers(THREADS, COUNTERS);
 
     if (IS_VERBOSE)
+    {
+        std::cout << "\ttotal:  " << total.get() << "\n";
+        std::cout << "\ttarget: " << (COUNTERS*THREADS) << "\n";
         std::cout << "\tChecking.\n";
+    }
     REQUIRE(Stats_c<>::size() == COUNTERS)
+    REQUIRE(total.get() == (COUNTERS*THREADS))
 
     PROFILE_OFF
     for (auto & [counter, count] : Stats_c<>::getInstance())
